@@ -5,7 +5,7 @@ const axios = require("axios");
 const parser = require("body-parser");
 
 app.listen(port, () => console.log(`Listening At Port ${port}`));
-app.use(express.static("public"));
+app.use('/rooms/:roomId', express.static("public"));
 
 // reviews server
 app.use(parser.json());
@@ -57,15 +57,14 @@ app.get("/reviews/comments", (req, res) => {
 
 // gallery server
 
-app.get("/properties/:id", (req, res) => {
-  let id = req.params.id;
-  axios
-    .get(`http://localhost:3001/properties/${id}`)
-    .then((data) => {
-      res.status(200).send(data.data);
+app.get('/properties/:id', (req, res) => {
+  let room_id = req.params.id;
+  axios.get(`http://localhost:3001/properties/${room_id}`)
+    .then(response => {
+      res.status(200).send(response.data);
     })
-    .catch(() => {
-      res.status(404);
+    .catch(err => {
+      res.status(400).send(err);
     });
 });
 
@@ -106,13 +105,12 @@ app.post("/rooms/:room_id/reservation", (req, res) => {
 // image carousel server
 
 app.get("/suggestedListings", (req, res) => {
-  app.get("http://localhost:3004/suggestedListings");
   axios
-    .get(`http://localhost:3004/suggestedListings`)
-    .then((data) => {
-      res.status(200).send(data.data);
+    .get("http://localhost:3004/suggestedListings")
+    .then((response) => {
+      res.send(response.data);
     })
-    .catch(() => {
-      res.status(404);
+    .catch((err) => {
+      res.status(400).send(err);
     });
 });
