@@ -13,7 +13,7 @@ app.use(parser.urlencoded({ extended: true }));
 
 app.get("/reviews/users", (req, res) => {
   axios
-    .get("http://localhost:3003/reviews/users")
+    .get("http://13.52.214.87:3003/reviews/users")
     .then((data) => {
       res.status(200).send(data.data);
     })
@@ -24,7 +24,7 @@ app.get("/reviews/users", (req, res) => {
 
 app.get("/reviews/houses", (req, res) => {
   axios
-    .get("http://localhost:3003/reviews/houses")
+    .get("http://13.52.214.87:3003/reviews/houses")
     .then((data) => {
       res.status(200).send(data.data);
     })
@@ -35,7 +35,7 @@ app.get("/reviews/houses", (req, res) => {
 
 app.get("/reviews", (req, res) => {
   axios
-    .get("http://localhost:3003/reviews")
+    .get("http://13.52.214.87:3003/reviews")
     .then((data) => {
       res.status(200).send(data.data);
     })
@@ -46,7 +46,7 @@ app.get("/reviews", (req, res) => {
 
 app.get("/reviews/comments", (req, res) => {
   axios
-    .get("http://localhost:3003/reviews/comments")
+    .get("http://13.52.214.87:3003/reviews/comments")
     .then((data) => {
       res.status(200).send(data.data);
     })
@@ -59,7 +59,7 @@ app.get("/reviews/comments", (req, res) => {
 
 app.get('/properties/:id', (req, res) => {
   let room_id = req.params.id;
-  axios.get(`http://localhost:3001/properties/${room_id}`)
+  axios.get(`http://54.183.251.18:1000/properties/${room_id}`)
     .then(response => {
       res.status(200).send(response.data);
     })
@@ -106,7 +106,7 @@ app.post("/rooms/:room_id/reservation", (req, res) => {
 
 app.get("/suggestedListings", (req, res) => {
   axios
-    .get("http://localhost:3004/suggestedListings")
+    .get("http://54.185.100.42:3004/suggestedListings")
     .then((response) => {
       res.send(response.data);
     })
