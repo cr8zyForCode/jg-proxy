@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-const port = 1010;
+const port = 8888;
 const axios = require("axios");
 const parser = require("body-parser");
 
 app.listen(port, () => console.log(`Listening At Port ${port}`));
-app.use('/rooms/:roomId', express.static("public"));
+app.use("/rooms/:roomId", express.static("public"));
 
 // reviews server
 app.use(parser.json());
@@ -57,13 +57,14 @@ app.get("/reviews/comments", (req, res) => {
 
 // gallery server
 
-app.get('/properties/:id', (req, res) => {
+app.get("/properties/:id", (req, res) => {
   let room_id = req.params.id;
-  axios.get(`http://54.183.251.18:1000/properties/${room_id}`)
-    .then(response => {
+  axios
+    .get(`http://18.191.221.206:3001/properties/${room_id}`)
+    .then((response) => {
       res.status(200).send(response.data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(400).send(err);
     });
 });
@@ -73,9 +74,8 @@ app.get('/properties/:id', (req, res) => {
 app.get("/rooms/:room_id/reservation", (req, res) => {
   let queryParams = req.params.room_id;
   axios
-    .get(`http://localhost:3002/rooms/${queryParams}/reservation`)
+    .get(`http://3.134.88.239:3002/rooms/${queryParams}/reservation`)
     .then((data) => {
-      console.log("Here in calendar");
       res.status(200).send(data.data);
     })
     .catch(() => {
@@ -85,16 +85,17 @@ app.get("/rooms/:room_id/reservation", (req, res) => {
 
 app.post("/rooms/:room_id/reservation", (req, res) => {
   let queryParams = req.params.room_id;
-
   let reservation = {
     check_in: req.body.check_in,
     check_out: req.body.check_out,
   };
 
   axios
-    .post(`http://localhost:3002/rooms/${queryParams}/reservation`, reservation)
+    .post(
+      `http://3.134.88.239:3002/rooms/${queryParams}/reservation`,
+      reservation
+    )
     .then((data) => {
-      console.log("Here in calendar");
       res.status(200).send(data.data);
     })
     .catch(() => {
@@ -106,7 +107,7 @@ app.post("/rooms/:room_id/reservation", (req, res) => {
 
 app.get("/suggestedListings", (req, res) => {
   axios
-    .get("http://54.185.100.42:3004/suggestedListings")
+    .get("http://52.32.67.233:3004/suggestedListings")
     .then((response) => {
       res.send(response.data);
     })
